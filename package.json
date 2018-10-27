@@ -4,12 +4,15 @@
   "description": "iot project with client and server",
   "main": "index.js",
   "scripts": {
-    "test": "start"
+    "test": "start",
+    "start": "nodemon nano_server.js"
   },
   "author": "Tai Tantipiwatanaskul",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "mongoose": "^5.3.7",
     "socket.io": "^2.1.1"
   },
   "devDependencies": {
