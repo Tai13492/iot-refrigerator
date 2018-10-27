@@ -5,15 +5,14 @@ import socketIOClient from "socket.io-client";
 
 const END_POINT = "http://localhost:4000/";
 
-const socket = socketIOClient(END_POINT);
-
 const formatDate = date => moment(date).format("MMM Do YYYY");
 
 class App extends Component {
   constructor(props) {
     super(props);
-    socket.on("socket", id => console.log(id));
-    socket.on("test2", test => console.log(test));
+    this.socket = socketIOClient(END_POINT);
+    this.socket.on("socket", id => console.log(id));
+    this.socket.on("test2", test => console.log(test));
     this.state = {
       products: []
     };
@@ -38,7 +37,7 @@ class App extends Component {
     });
   };
   render() {
-    // const { socket } = this;
+    const { socket } = this;
     return (
       <div className="container">
         <div className="columns">
