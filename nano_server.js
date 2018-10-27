@@ -26,6 +26,10 @@ const io = socket.listen(server);
 
 server.listen(PORT, () => console.log("server strting in port 4000"));
 
+app.get("/", (req, res) => {
+  res.send("Hello From Tai!");
+});
+
 app.post("/add-product-key", (req, res) => {
   const { barcodeKey, name } = req.body;
   ProductKey.findOne({ barcodeKey }).then(product => {
@@ -45,7 +49,10 @@ app.post("/add-product-key", (req, res) => {
 app.post("/add-product-expiry-date", (req, res) => {
   const { barcodeKey, expiryDate } = req.body;
   ProductKey.findOne({ barcodeKey }).then(product => {
-    if (!product) return res.status(404).send("No product found");
+    if (!product) {
+      io.emit("NO_PRODUCT", "Sorry, we cannot find your product!");
+      return res.status(404).send("No product found");
+    }
     const newProductExpiryDate = new ProductExpiryDate({
       name: product.name,
       expiryDate

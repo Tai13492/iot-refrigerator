@@ -11,8 +11,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.socket = socketIOClient(END_POINT);
-    this.socket.on("socket", id => console.log(id));
-    this.socket.on("test2", test => console.log(test));
+    this.socket.on("NEW_PRODUCT_ADDED", product => {
+      this.updateProducts(product);
+    });
+    this.socket.on("NO_PRODUCT", message => {
+      alert(message);
+    });
+    // this.socket.on("DELETE_PRODUCT", product => {
+    //   this.deleteProduct(product);
+    // });
     this.state = {
       products: []
     };
@@ -24,12 +31,37 @@ class App extends Component {
     this.setState({ products });
   }
 
+  updateProducts = product => {
+    this.setState(prevState => ({
+      products: [...prevState.products, product]
+    }));
+  };
+
+  // deleteProduct = product => {
+  //   let productsClone = [...this.state.products];
+  //   console.log(productsClone);
+  //   const index = productsClone.findIndex(
+  //     productClone => productClone._id === product._id
+  //   );
+  //   productsClone = productsClone
+  //     .slice(0, index)
+  //     .concat(productsClone.slice(index + 1));
+  //   console.log(productsClone);
+  //   this.setState({ products: productsClone });
+  // };
+
   renderProducts = () => {
     const { products } = this.state;
     return products.map(product => {
       const { _id, name, expiryDate } = product;
       return (
-        <div className="box-list" key={_id}>
+        <div
+          className="box-list"
+          key={_id}
+          // onClick={() => {
+          //   this.socket.emit("DELETE_PRODUCT", _id);
+          // }}
+        >
           <p className="title is-5 m-12"> {name}</p>
           <p className="title is-6"> Expiry Date: {formatDate(expiryDate)}</p>
         </div>
@@ -37,14 +69,23 @@ class App extends Component {
     });
   };
   render() {
-    const { socket } = this;
+    // const { socket } = this;
     return (
       <div className="container">
         <div className="columns">
           <div className="column">
             <div className="background-panel">{this.renderProducts()}</div>
           </div>
-          <div className="column">
+        </div>
+      </div>
+    );
+  }
+}
+
+export default App;
+
+/*
+     <div className="column">
             <div className="field">
               <label className="label"> Code </label>
               <div className="control">
@@ -81,10 +122,4 @@ class App extends Component {
           >
             Submit
           </button>
-        </div>
-      </div>
-    );
-  }
-}
-
-export default App;
+*/
