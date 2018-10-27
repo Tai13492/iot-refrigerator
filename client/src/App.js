@@ -3,63 +3,36 @@ import React, { Component } from "react";
 class App extends Component {
   render() {
     return (
-      <div className="container" style={{ marginTop: 24 }}>
+      <div className="container">
         <div className="columns">
           <div className="column">
-            <div style={{ backgroundColor: "#545959", padding: 16 }}>
-              <div
-                style={{
-                  backgroundColor: "#a9e3f9",
-                  padding: 12,
-                  borderRadius: 4,
-                  marginBottom: 12
-                }}
-              >
-                <p className="title is-5" style={{ marginBottom: 12 }}>
-                  {" "}
-                  Milk{" "}
-                </p>
+            <div className="background-panel">
+              <div className="box-list is-expiring">
+                <p className="title is-5 m-12"> Milk </p>
                 <p className="title is-6"> Expiry date: 23/12/18 </p>
               </div>
-              <div
-                style={{
-                  backgroundColor: "#f98109",
-                  padding: 12,
-                  borderRadius: 4,
-                  marginBottom: 12
-                }}
-              >
-                <p className="title is-5" style={{ marginBottom: 12 }}>
-                  {" "}
-                  Milk{" "}
-                </p>
+              <div className="box-list">
+                <p className="title is-5 m-12"> Milk </p>
                 <p className="title is-6"> Expiry date: 23/12/18 </p>
               </div>
-              <div
-                style={{
-                  backgroundColor: "#ff0000",
-                  padding: 12,
-                  borderRadius: 4,
-                  marginBottom: 12
-                }}
-              >
-                <p className="title is-5" style={{ marginBottom: 12 }}>
-                  {" "}
-                  Milk{" "}
-                </p>
+              <div className="box-list">
+                <p className="title is-5 m-12">Milk</p>
                 <p className="title is-6"> Expiry date: 23/12/18 </p>
               </div>
-              <div
-                style={{
-                  backgroundColor: "#a9e3f9",
-                  padding: 12,
-                  borderRadius: 4
-                }}
-              >
-                <p className="title is-5" style={{ marginBottom: 12 }}>
-                  {" "}
-                  Milk{" "}
-                </p>
+              <div className="box-list">
+                <p className="title is-5 m-12"> Milk </p>
+                <p className="title is-6"> Expiry date: 23/12/18 </p>
+              </div>
+              <div className="box-list">
+                <p className="title is-5 m-12"> Milk </p>
+                <p className="title is-6"> Expiry date: 23/12/18 </p>
+              </div>
+              <div className="box-list">
+                <p className="title is-5 m-12"> Milk </p>
+                <p className="title is-6"> Expiry date: 23/12/18 </p>
+              </div>
+              <div className="box-list">
+                <p className="title is-5 m-12"> Milk </p>
                 <p className="title is-6"> Expiry date: 23/12/18 </p>
               </div>
             </div>
