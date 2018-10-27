@@ -26,10 +26,6 @@ const io = socket.listen(server);
 
 server.listen(PORT, () => console.log("server strting in port 4000"));
 
-app.get("/", (req, res) => {
-  res.send("hello world");
-});
-
 app.post("/add-product-key", (req, res) => {
   const { barcodeKey, name } = req.body;
   ProductKey.findOne({ barcodeKey }).then(product => {
@@ -68,11 +64,18 @@ app.get("/all-products", (req, res) => {
     res.status(200).json({ products: products });
   });
 });
+
 io.on("connection", socket => {
+  console.log(socket.id);
+  socket.emit("socket", socket.id);
   socket.on("DELETE_PRODUCT", _id => {
     ProductExpiryDate.findByIdAndRemove({ _id }).then(product => {
       io.emit("PRODUCT_DELETED", product);
     });
+  });
+  socket.on("test", test => {
+    console.log(test);
+    socket.emit("test2", "HELLO BACK FROM SERVER");
   });
   socket.on("disconnect", () => console.log("user disconnected"));
 });
