@@ -31,12 +31,21 @@ code {
   padding: 12px;
   border-radius: 4px;
   margin-bottom: 12px;
+  cursor: pointer;
 }
 
+.is-white {
+  color: rgba(255, 255, 255, 1);
+}
 .m-12 {
   margin-bottom: 12px !important;
 }
 
 .is-expiring {
-  background-color: #ff0000;
+  background-color: #ff4d4d;
+}
+
+.is-expired {
+  background-color: black;
+  color: white !important;
 }
