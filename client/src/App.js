@@ -18,6 +18,28 @@ class App extends React.PureComponent {
     };
   }
 
+  async componentDidMount() {
+    this.fetchJsonFromServer();
+  }
+
+  render() {
+    return (
+      <div className="container">
+        <button
+          className="button is-link"
+          style={{ marginBottom: 12 }}
+          onClick={this.fetchJsonFromServer}
+        >
+          Fetch
+        </button>
+        <div className="columns">
+          <div className="column">
+            <div className="background-panel">{this.renderProducts()}</div>
+          </div>
+        </div>
+      </div>
+    );
+  }
   fetchJsonFromServer = async () => {
     const res = await axios.get("/livejson.php?userid=003887&key=pzt1sspgo2xn");
     const {
@@ -41,7 +63,8 @@ class App extends React.PureComponent {
       name:
         productsHashMap[data["2"].substring(0, 2)] ||
         "This product is not registered",
-      expiryDate: this.getDateFromFloat(data["3"])
+      expiryDate: this.getDateFromFloat(data["3"]),
+      dateCreated: data["3"]
     };
   };
 
@@ -76,14 +99,14 @@ class App extends React.PureComponent {
     return this.setState({ time: 0, deletingIndex: null });
   };
 
-  async componentDidMount() {
-    this.fetchJsonFromServer();
-  }
-
   renderProducts = () => {
-    const { products } = this.state;
+    const { products, deletedProducts } = this.state;
     return products.map((product, idx) => {
-      const { name, expiryDate } = product;
+      const { name, expiryDate, dateCreated } = product;
+      const isDeleted = deletedProducts.findIndex(
+        deletedProduct => deletedProduct.dateCreated === dateCreated
+      );
+      if (isDeleted !== -1) return null;
       return (
         <div
           className={this.productStatus(expiryDate)}
@@ -134,25 +157,6 @@ class App extends React.PureComponent {
       );
     });
   };
-  render() {
-    console.log(this.state.deletedProducts, "deletedProducts");
-    return (
-      <div className="container">
-        <button
-          className="button is-link"
-          style={{ marginBottom: 12 }}
-          onClick={this.fetchJsonFromServer}
-        >
-          Fetch
-        </button>
-        <div className="columns">
-          <div className="column">
-            <div className="background-panel">{this.renderProducts()}</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
 }
 
 export default App;
